@@ -173,7 +173,7 @@ class _SudokuSolverScreenState extends State<SudokuSolverScreen> {
             if (currentDomain != null) ...[
               const SizedBox(height: 4),
               Text(
-                '${AppTexts.domainLabel} ${currentDomain!.join(', ')}',
+                '${AppTexts.domainLabel} ${currentDomain!.isEmpty ? AppTexts.emptyDomain : currentDomain!.join(', ')}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],

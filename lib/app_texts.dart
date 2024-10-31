@@ -35,6 +35,7 @@ This tool demonstrates how Constraint Satisfaction Problems (CSP) can solve Sudo
 
   static const variableLabel = 'Variable:';
   static const domainLabel = 'Domain:';
+  static const emptyDomain = '∅ (Empty)';
   static const constraintsViolatedLabel = 'Constraints Violated:';
   static const heuristicsInUse = 'Heuristics in use:';
   static const stepLabel = 'Step:';

@@ -8,7 +8,8 @@ class SudokuSolver {
   int? currentCol;
   List<List<Set<int>>> savedDomains = [];
   bool needsBacktrack = false;
-  final List<(int, int, Set<int>)> moveHistory = [];
+  final List<(int row, int col, int value, Set<int> remaining)> moveHistory =
+      [];
 
   SudokuSolver()
       : grid = List.generate(9, (_) => List.filled(9, null)),
@@ -128,7 +129,7 @@ class SudokuSolver {
     // Try the first available value
     final value = availableValues.first;
     final remainingValues = Set<int>.from(domains[row][col])..remove(value);
-    moveHistory.add((row, col, remainingValues));
+    moveHistory.add((row, col, value, remainingValues));
 
     grid[row][col] = value;
 
@@ -192,8 +193,9 @@ class SudokuSolver {
       );
     }
 
-    final (row, col, remainingValues) = moveHistory.removeLast();
-    final oldValue = grid[row][col];
+    final (row, col, oldValue, remainingValues) = moveHistory.removeLast();
+
+    // Remove the old value from the grid
     grid[row][col] = null;
 
     // Reset domains for the entire grid

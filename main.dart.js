@@ -74506,8 +74506,8 @@ n=A.b([o,B.dd,A.dc(n,p,p,p,A.N(a).p2.y,p,p)],s)
 o=q.y
 if(o.length!==0)B.b.P(n,A.b([B.dd,A.dc("Variable: "+o,p,p,p,A.N(a).p2.z,p,p)],s))
 o=q.z
-if(o!=null)B.b.P(n,A.b([B.xr,A.dc("Domain: "+o.bD(0,", "),p,p,p,A.N(a).p2.z,p,p)],s))
-o=q.Q
+if(o!=null){o=o.ga5(o)?"\u2205 (Empty)":q.z.bD(0,", ")
+B.b.P(n,A.b([B.xr,A.dc("Domain: "+o,p,p,p,A.N(a).p2.z,p,p)],s))}o=q.Q
 if(o.length!==0){r=A.N(a).p2.z
 r=r==null?p:r.bT(B.rp)
 B.b.P(n,A.b([B.xr,A.dc("Constraints Violated: "+o,p,p,p,r,p,p)],s))}return A.p8(p,A.h_(A.b([A.fM(A.air(A.h_(n,B.aK,B.aV)),300,p),B.xq,q.XB(a)],s),B.aK,B.aV),B.G,p,p,p,B.ik,p)},

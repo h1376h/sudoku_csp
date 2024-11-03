@@ -27,7 +27,7 @@ class _SudokuSolverScreenState extends State<SudokuSolverScreen> {
   Timer? _solveTimer;
   bool get _isSolving => _solveTimer != null;
   int stepCount = 0;
-  static const stepDelay = Duration(milliseconds: 10);
+  static const stepDelay = Duration(microseconds: 10);
   bool _showDomains = false;
 
   @override

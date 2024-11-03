@@ -160,8 +160,14 @@ class _SudokuSolverScreenState extends State<SudokuSolverScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              currentStep.isEmpty ? AppTexts.welcomeMessage : currentStep,
-              style: Theme.of(context).textTheme.bodyLarge,
+              solver.isUnsolvable
+                  ? AppTexts.puzzleUnsolvable
+                  : currentStep.isEmpty
+                      ? AppTexts.welcomeMessage
+                      : currentStep,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: solver.isUnsolvable ? Colors.red : null,
+                  ),
             ),
             if (currentVariable.isNotEmpty) ...[
               const SizedBox(height: 8),
@@ -235,6 +241,7 @@ class _SudokuSolverScreenState extends State<SudokuSolverScreen> {
 
   Widget _buildControlButtons() {
     final bool puzzleComplete = solver.isComplete();
+    final bool isUnsolvable = solver.isUnsolvable;
 
     return Card(
       child: Padding(
@@ -243,7 +250,7 @@ class _SudokuSolverScreenState extends State<SudokuSolverScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: (_isSolving || puzzleComplete)
+              onPressed: (_isSolving || puzzleComplete || isUnsolvable)
                   ? null
                   : solver.needsBacktrack
                       ? _backtrack
@@ -267,7 +274,8 @@ class _SudokuSolverScreenState extends State<SudokuSolverScreen> {
                     ),
             ),
             IconButton(
-              onPressed: puzzleComplete ? null : _startSolving,
+              onPressed:
+                  (puzzleComplete || isUnsolvable) ? null : _startSolving,
               icon: _isSolving
                   ? const Icon(Icons.stop)
                   : const Icon(Icons.fast_forward),
@@ -322,7 +330,7 @@ class _SudokuSolverScreenState extends State<SudokuSolverScreen> {
     _solveTimer = Timer.periodic(
       stepDelay,
       (timer) {
-        if (solver.isComplete()) {
+        if (solver.isComplete() || solver.isUnsolvable) {
           timer.cancel();
           _solveTimer = null;
           setState(() {});

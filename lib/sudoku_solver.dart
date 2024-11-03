@@ -10,6 +10,7 @@ class SudokuSolver {
   bool needsBacktrack = false;
   final List<(int row, int col, int value, Set<int> remaining)> moveHistory =
       [];
+  bool isUnsolvable = false;
 
   SudokuSolver()
       : grid = List.generate(9, (_) => List.filled(9, null)),
@@ -74,6 +75,13 @@ class SudokuSolver {
     required bool useLCV,
     required bool useDegree,
   }) {
+    if (isUnsolvable) {
+      return StepResult(
+        success: false,
+        explanation: AppTexts.puzzleUnsolvable,
+      );
+    }
+
     if (currentRow == null && currentCol == null) {
       needsBacktrack = false;
     }
@@ -187,6 +195,7 @@ class SudokuSolver {
 
   StepResult backtrack() {
     if (moveHistory.isEmpty) {
+      isUnsolvable = true;
       return StepResult(
         success: false,
         explanation: AppTexts.noMovesToBacktrack,
@@ -363,6 +372,7 @@ class SudokuSolver {
     needsBacktrack = false;
     moveHistory.clear();
     savedDomains.clear();
+    isUnsolvable = false;
   }
 
   void initializeWithSamplePuzzle() {
